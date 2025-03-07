@@ -6,7 +6,7 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
-class ProjectSerializzer(serializers.ModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many = True, read_only = True)
     class Meta:
         model = Project
