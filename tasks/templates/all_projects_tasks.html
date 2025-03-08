@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>All Projects & Tasks</title>
+    <script>
+        function confirmDelete(form) {
+            if (confirm("Are you sure you want to delete this?")) {
+                form.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>All Projects</h1>
+    <a href="{% url 'create_project' %}"><button>Create New Project</button></a>
+    <ul>
+        {% for project in projects %}
+            <li>
+                {{ project.name }} - {{ project.description }}
+                <a href="{% url 'edit_project' project.id %}">
+                    <button>Edit</button>
+                </a>
+                <form action="{% url 'delete_project' project.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="button" onclick="confirmDelete(this.form)">Delete</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No projects available.</li>
+        {% endfor %}
+    </ul>
+
+    <h1>All Tasks</h1>
+    <a href="{% url 'create_task' %}"><button>Create New Task</button></a>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.name }} - {{ task.status }}
+                <a href="{% url 'edit_task' task.id %}">
+                    <button>Edit</button>
+                </a>
+                <form action="{% url 'delete_task' task.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="button" onclick="confirmDelete(this.form)">Delete</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No tasks available.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}"><button>Back to Home</button></a>
+</body>
+</html>
