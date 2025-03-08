@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Task</title>
+</head>
+<body>
+    <h2>Create a New Task</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ task_form.as_p }}
+        <button type="submit">Save Task</button>
+    </form>
+
+    <hr>
+
+    <h2>Existing Tasks</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.name }} - {{ task.status }}</li>
+        {% empty %}
+            <li>No tasks yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
